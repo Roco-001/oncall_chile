@@ -1,0 +1,98 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Calendario Ot Grtc{% endblock %}
+{% load static %}
+{% block css_extra %}
+    <link rel="stylesheet" href="{% static 'core/lib/main.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.bootstrap4.min.css" rel="stylesheet" />
+
+{% endblock %}
+{% block content %}
+       <div class="container">
+           <div class="row">
+               <div class="col-12">
+                <form class="form-inline"  method ="GET">
+                    {% csrf_token %}
+                  <select class="custom-select my-3 mr-sm-2 col-10" id="id_guardia" name="guardia">
+                     <option selected>Seleccione...</option>
+                      {% for guardia in guardias %}
+                    <option value="{{guardia.id}}">{{guardia.name}}</option>
+                    {% endfor %}
+                  </select>
+                <button type="submit" class="btn btn-secondary ml-2 my-1 float-right ">Seleccionar</button>
+            </form>
+            </div>
+          </div>
+        </div>
+    <div class="container my-3" id='calendar'></div>
+
+{{ots_aprobadas}}
+
+{% endblock  %}
+
+
+
+
+
+{% block js_extra %}
+
+
+
+
+<script type="text/javascript" src="{% static 'core/lib/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'core/lib/locales-all.js' %}"></script>
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded',function(){
+        var calendarUI = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarUI,{
+
+       timeZone: 'local',
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev next today',
+            center: 'title',
+            right: 'dayGridMonth timeGridWeek listWeek'
+        },
+
+            events:[
+               {% for item in guardias_especialistas %}
+                {
+                    title:"{{item.name.name}}",
+                    start:"{{item.fecha_inicio|date:'Y-m-d'}} {{item.fecha_inicio|time:'H:i'}}",
+                    end:"{{item.fecha_fin|date:'Y-m-d'}} {{item.fecha_fin|time:'H:i'}}",
+                    url:"{% url 'core:guardias_especialistas_update' item.id  %}",
+                    backgroundColor:"{{guardia_color.color_fondo}}",
+                    borderColor:"{{ot.color_borde}}",
+                    textColor:"{{guardia_color.color_texto}}",
+                },
+                 {% endfor %}
+
+            ]
+
+        });
+        calendar.render();
+        calendar.setOption('locale','es');
+    });
+
+
+
+</script>
+
+ <script>
+  $(function(){
+    $("#id_guardia").select2({
+        allowCLear:true,
+        languaje: "es",
+         placeholder:"Seleccione una Guardia",
+    });
+
+
+
+    });
+</script>
+{% endblock  %}

@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block title %}Empresas{% endblock %}
+{% load static %}
+{% block content %}
+
+       <!-- INICIO SECTION Especialidad -->
+            <section class="proyectos py-4">
+              <div class="container">
+                <h6>
+                    <a href="javascript:history.back()" class="text-muted">
+                       <i class="bi bi-backspace-fill"></i> Regresar</a>
+                </h6>
+                <h4 class="display-4 font-weight-bold text-center pb-4">{{object_list}} {{object.id}}</h4>
+                <div class="row text-md-center">
+                  {% for empresa in object_list %}
+                  <article class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
+                    <div class="card">
+                        {% if empresa.imagen %}
+                      <img class="card-img-top" src="{{empresa.imagen.url}}" style="height: 100px;" alt="{{empresa.name}}">
+                        {% endif %}
+                      <div class="card-body">
+                        <h5 class="card-title">{{empresa.name}}</h5>
+                        <a href="{% url 'core:tabla_detail' empresa.id %}" class="btn btn-secondary">Ver Matriz</a>
+                      </div>
+                    </div>
+                  </article>
+                  {% endfor %}
+                </div>
+              </div>
+            </section>
+       <!-- /FIN DE LA SECTION -->
+{% endblock %}

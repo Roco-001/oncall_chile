@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% block title %}Principal{% endblock %}
+{% load static %}
+{% block content %}
+
+
+    <!-- INICIO DE LA TARJETA -->
+        <div class="container"> 
+          <div class="card text-center my-3">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'core:especialidades_list' %}">Especialidades</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="{% url 'core:regiones_list' %}">Regiones</a>
+                </li>
+
+
+
+              </ul>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Guardias OnCall Chile 2022</h5>
+              <p class="card-text">El siguiente contenido es confidencial.</p>
+            </div>
+          </div>
+        </div>
+    <!-- /FIN DE LA TARJETA -->
+{% endblock %}

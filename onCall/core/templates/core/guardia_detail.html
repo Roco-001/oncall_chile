@@ -1,0 +1,68 @@
+{% extends 'core/base.html' %}
+{% block title %}Regiones{% endblock %}
+{% load static %}
+{% block css_extra %}{% endblock %}
+
+
+{% block content %}
+
+ <div class="container mt-3">
+    <div class="row">
+        <div class="col-12 ">
+          <a href="javascript:history.back()" class="text-muted">
+                       <i class="bi bi-backspace-fill"></i> Regresar
+               </a>
+           <table class="table table-hover">
+            <thead>
+              <tr>
+
+                <th scope="col"colspan="8" class="text-center">Guardia de {{object.name}}</th>
+              </tr>
+
+                 <tr>
+               <td>Nombre</td>
+                     <td>Email</td>
+                     <td>Cargo</td>
+                     <td>Telf. Guardia</td>
+                     <td>Telf.Asignado</td>
+                     <td>Telf. Otro</td>
+                     <td>Fijo Oficina</td>
+                     <td>Fijo Casa</td>
+
+              </tr>
+            </thead>
+            <tbody>
+             {% for profile in object_list  %}
+              <tr>
+
+               <td> <a style="color:white;text-decoration:none;" href="{% url 'core:guardia_detail' guardia.id  %}">{{profile.name}}</a></td>
+                  <td>{{profile.name.email}}</td>
+                   <td>{% if profile.name.nivel == 1 %}
+                       Especialista
+                       {% elif profile.name.nivel == 2 %}
+                       Supervisor
+
+                       {% elif profile.name.nivel == 3 %}
+                       Jefe de área
+
+                       {% elif profile.name.nivel == 4 %}
+                       Gerente de área
+
+                       {% elif profile.name.nivel == 5 %}
+                       Gerente
+
+                       {% endif %}</td>
+                    <td>{{profile.name.phone_guardia}}</td>
+                   <td>{{profile.name.phone_asignado}}</td>
+                  <td>{{profile.name.phone_otro}}</td>
+                  <td>{{profile.name.fijo_oficina}}</td>
+                   <td>{{profile.name.fijo_casa}}</td>
+
+              </tr>
+                 {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+ </div>
+{% endblock %}

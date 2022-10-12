@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% block title %}Tablas{% endblock %}
+{% load static %}
+{% block content %}
+
+       <!-- INICIO TABLA DE ESCALACION -->
+       <div class="container table-responsive">
+           <h6 class="mt-4"><a href="javascript:history.back()" class="text-muted">
+                       <i class="bi bi-backspace-fill"></i> Regresar
+               </a>
+           </h6>
+           <h4 class="display-4 font-weight-bold text-center pb-4">{{object}}</h4>
+
+           {% for document in object_list %}
+                {% if document.excel %}
+
+                <a href="{{ document.excel.url }}" download  class="btn btn-outline-secondary float-right mb-1" >Download</a>
+                {% endif %}
+           {% endfor %}
+
+         <table class="table my-3 table-hover">
+              <thead class="bg-secondary text-white">
+
+                <tr>
+                  <th scope="col">Nivel</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Teléfono</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for persona in object_list %}
+                <tr>
+                  <th scope="row">{{persona.nivel.name}}</th>
+                  <td>{{persona.name}}</td>
+                  <td>{{persona.last_name}}</td>
+                  <td>{{persona.mail}}</td>
+                  <td>{{persona.phone}}</td>
+                </tr>
+                <tr>
+              {% endfor %}
+              </tbody>
+        </table>
+    </div>
+    <!-- /FIN DE LA TABLA DE LA ESCALACION -->
+{% endblock %}

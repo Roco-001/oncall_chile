@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Prueba{% endblock %}
+
+
+{% block css_extra %}
+
+{% endblock %}
+{% block content %}
+
+<style>.errorlist{color:red;} label{display:none}</style>
+
+
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+
+          <div class="row">
+            <!-- Formulario -->
+            <div class="col-md-10">
+
+                 {% if 'ok' in request.GET %}
+                        <p style="color:green;">
+                          Guardia Cargada correctamente...
+                        </p>
+                      {% endif %}
+
+                {% if form.fecha_fin.errors %}
+                    <p style="color:red">{{form.fecha_fin.errors}}</p>
+                  {% endif %}
+              <h3 class="text-center">Regitra las guardias de la Región {{request.user.userregion.region.name}}</h3>
+
+                        <div class="form-floating mt-4">
+                          <select class="form-control my-3 select2" id="id_name"  name="name" aria-label="Floating label select example">
+
+                              <option selected>Seleccione un Recurso</option>
+                               {% for item in continents %}
+
+                                 <option value="{{item.id}}"  >{{item.name}}</option>
+                               {% endfor %}
+                          </select>
+                        </div>
+
+                     <div class="form-floating my-3">
+                        <select class="form-control select2"  id="id_guardia"  name="guardia" aria-label="Floating label select example" >
+                            {% for guardia in  countrys %}
+                               <option value="{{guardia.id}}"  >{{guardia.name}}</option>
+                              {% endfor %}
+                        </select>
+                      </div>
+
+                   <div class="form-floating my-3">
+                        <select class="form-control select2"  id="id_guardia"  name="guardia" aria-label="Floating label select example">
+                            {% for guardia in  locations %}
+                               <option value="{{guardia.id}}"  >{{guardia.name}}</option>
+                              {% endfor %}
+                        </select>
+                      </div>
+
+            </div>
+
+            {{locations}}
+
+          </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
+<script src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
+{% endblock %}

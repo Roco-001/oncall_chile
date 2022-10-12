@@ -1,0 +1,7 @@
+ <div class="form-floating my-3">
+    <select class="form-control"  id="id_guardias"  name="guardia" aria-label="Floating label select example" multiple>
+        {% for guardia in  perfiles_guardias %}
+           <option value="{{guardia.id}}"  >{{guardia.name}}</option>
+          {% endfor %}
+    </select>
+  </div>
